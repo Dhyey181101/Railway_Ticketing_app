@@ -1,0 +1,52 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Tickets</h1>
+
+<% if current_user.admin %>
+  <%= form_tag tickets_path, :method => 'get' do %>
+    <p>
+      <%= text_field_tag :search, params[:search], placeholder: "Enter User ID" %>
+      <%= submit_tag "search", :user_id => nil %>
+    </p>
+  <% end %>
+<% end %>
+<table>
+  <thead>
+  <tr>
+    <th>Ticket</th>
+    <% if current_user.admin %>
+      <th>User ID</th>
+      <th>User Name</th>
+    <% end %>
+    <th>Train Number</th>
+    <th>Departure</th>
+    <th>Termination</th>
+    <th>Confirmation Number</th>
+    <th colspan="4"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @tickets.each do |ticket| %>
+    <tr>
+      <td><%= ticket.id %></td>
+      <% if current_user.admin %>
+        <td><%= ticket.user.id %></td>
+        <td><%= ticket.user.name %></td>
+      <% end %>
+      <td><%= ticket.train.train_number %></td>
+      <td><%= ticket.train.departure_station %></td>
+      <td><%= ticket.train.termination_station %></td>
+      <td><%= ticket.confirmation_number %></td>
+      <td><%= link_to 'Show', ticket %></td>
+      <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+      <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<td><%= link_to 'New Ticket', trains_path %></td>
+<br><br>
+<td><%= link_to 'Home Page', root_path %></td>

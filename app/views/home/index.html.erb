@@ -1,0 +1,26 @@
+<p id=”notice”><%= notice %></p>
+<h1>Rails on Rails</h1>
+<h2>Easily purchase tickets here!!</h2>
+
+<% if current_user %>
+  <% if current_user.admin %>
+    <%= link_to "Create New Train", new_train_path %><br><br>
+    <%= link_to 'Available Trains', trains_path %><br><br>
+    <%= link_to "Create New User", new_user_path %><br><br>
+    <%= link_to "View All Users", users_path %><br><br>
+  <% end %>
+  <% unless current_user.admin%>
+  <%= link_to 'Available Trains', trains_path %><br><br>
+  <%= link_to 'Your Ticket History', tickets_path %><br><br>
+  <%= link_to "New review", new_review_path %><br><br>
+  <%= link_to "See Your Reviews", reviews_path(user_id: current_user.id,show_only_user_reviews: true) %>
+  <br><br>
+  <%end%>
+  <%= link_to"View all Reviews", reviews_path(current_user)  %><br><br>
+  <%= link_to 'Account Details', current_user %><br><br>
+  Logged in as <%= current_user.username %>.<br>
+  <%= link_to "Logout", logout_path %>
+<% else %>
+  <%= link_to "Signup", signup_path %> or
+  <%= link_to "Login", login_path %>
+<% end %>

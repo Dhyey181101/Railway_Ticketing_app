@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @train %>
+<p>
+  <strong>Average Rating:</strong>
+  <%= @train.average_rating %>
+</p>
+
+
+
+<!-- Display the Average Rating -->
+
+<div>
+  <%= link_to "Edit this train", edit_train_path(@train) %> |
+  <%= link_to "Back to trains", trains_path %>
+
+  <%= button_to "Destroy this train", @train, method: :delete %>
+</div>

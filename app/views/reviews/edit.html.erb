@@ -1,0 +1,14 @@
+<h1>Editing review</h1>
+
+<% if current_user == @review.user %>
+  <%= render "form", review: @review %>
+<% else %>
+  <p>You can only edit your own reviews.</p>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to "Show this review", @review %> |
+  <%= link_to "Back to reviews", reviews_path %>
+</div>

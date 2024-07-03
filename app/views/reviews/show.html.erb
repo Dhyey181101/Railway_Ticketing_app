@@ -1,0 +1,54 @@
+<p style="color: green"><%= notice %></p>
+<% if params[:show_only_user_reviews] != "true" %>
+<div><h1>Review For Train #<%= find_train_number(@review.train_id) %></h1></div>
+  <div><h2>Written by user: <%= find_user_name(@review.user_id) %></h2></div>
+  <div><h3><%=@review.rating%>/5</h3></div>
+  <p><b>Feedback:</b><br> <%= @review.feedback  %>  </p> 
+
+
+<div>
+  <%= link_to "Edit this review", edit_review_path(@review) %> |
+  <%= link_to "Back to reviews", reviews_path %>
+
+  <%= button_to "Destroy this review", @review, method: :delete %>
+<%end%>
+
+<% if params[:show_only_user_reviews] == "true" %>
+<p style="color: green"><%= notice %></p>
+
+<h1>Reviews</h1>
+
+<div id="reviews">
+  
+    <table>
+  <thead>
+    <tr>
+      <th>Train Number</th>
+      <th>Rating (out of 5)</th>
+      <th>Feedback</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reviews.where(user_id: current_user.id).each do |review| %>
+      <tr>
+        <td><%= review.train_id %></td>
+        <td><%= review.rating %></td>
+        <td><%= truncate_feedback(review.feedback) %></td>
+        <td><%= link_to "Show this review", review %></td>
+      </tr>
+    <% end %>    
+  </tbody>
+</table>
+
+    
+  
+</div>
+<% unless current_user.admin%>
+<%= link_to "New review", new_review_path %>
+<%end%>
+
+<%end%>
+
+</div>

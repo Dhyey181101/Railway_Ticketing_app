@@ -1,0 +1,64 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :username %>
+    <% if defined?(readonly_username) && readonly_username %>
+      <div style="background: #D3D3D3; border-radius: 2px; width: 170px; border: 1px solid black;">
+        <%= user.username %>
+      </div>
+    <% else %>
+      <%= form.text_field :username %>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email_address %>
+    <%= form.text_field :email_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_area :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_number %>
+    <%= form.text_field :phone_number, placeholder: "1234567890", maxlength: 10 %>
+  </div>
+
+  <div class="actions">
+  <div class="field">
+    <%= form.label :credit_card %>
+    <%= form.text_field :credit_card, placeholder: "9999-9999-9999-9999" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
